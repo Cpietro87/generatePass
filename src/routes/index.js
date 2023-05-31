@@ -1,9 +1,18 @@
 import { Router } from "express";
+import generator from "../utils/generatorPass.js";
 
-const routes = Router();
+const router = Router();
 
-routes.get("/", (req,res) => {
-    console.log('Hello World!!!');
+router.get("/:quantity", (req, res) => {
+    const { quantity } = req.params;
+
+    let passwords = [];
+
+    for (let x = 0; x < quantity; x++) {
+        passwords.push({ randomPassword: generator() });
+    }
+
+    res.json(passwords);
 });
 
-export default routes;
+export default router;
